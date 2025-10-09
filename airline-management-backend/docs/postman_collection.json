@@ -1,0 +1,478 @@
+{
+	"info": {
+		"name": "Multi-Airline Management API",
+		"description": "Complete API testing collection for Multi-Airline Management Portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api/v1"
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"test@customer.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"Customer\",\n  \"phone\": \"+1-555-0199\",\n  \"roleId\": 4\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"  const response = pm.response.json();",
+									"  pm.collectionVariables.set('accessToken', response.data.accessToken);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john.doe@email.com\",\n  \"password\": \"customer123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Airline Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"  const response = pm.response.json();",
+									"  pm.collectionVariables.set('accessToken', response.data.accessToken);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin1@skyways.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Super Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"  const response = pm.response.json();",
+									"  pm.collectionVariables.set('accessToken', response.data.accessToken);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@airline-portal.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/profile",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "profile"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Airlines",
+			"item": [
+				{
+					"name": "Get All Airlines",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/airlines",
+							"host": ["{{baseUrl}}"],
+							"path": ["airlines"]
+						}
+					}
+				},
+				{
+					"name": "Register New Airline",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Global Wings Airways\",\n  \"code\": \"GWA\",\n  \"country\": \"United States\",\n  \"headquartersAddress\": \"789 Airport Blvd, Chicago, IL 60601\",\n  \"contactEmail\": \"info@globalwings.com\",\n  \"contactPhone\": \"+1-800-GLOBALW\",\n  \"websiteUrl\": \"https://www.globalwings.com\",\n  \"description\": \"Connecting the world with premium airline service\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/airlines/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["airlines", "register"]
+						}
+					}
+				},
+				{
+					"name": "Get Airline Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/airlines/stats",
+							"host": ["{{baseUrl}}"],
+							"path": ["airlines", "stats"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Flights",
+			"item": [
+				{
+					"name": "Search Flights",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/flights/search?from=JFK&to=LAX&departureDate=2024-12-25&passengers=1",
+							"host": ["{{baseUrl}}"],
+							"path": ["flights", "search"],
+							"query": [
+								{
+									"key": "from",
+									"value": "JFK"
+								},
+								{
+									"key": "to",
+									"value": "LAX"
+								},
+								{
+									"key": "departureDate",
+									"value": "2024-12-25"
+								},
+								{
+									"key": "passengers",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Flights",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/flights",
+							"host": ["{{baseUrl}}"],
+							"path": ["flights"]
+						}
+					}
+				},
+				{
+					"name": "Create Flight",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flightNumber\": \"SKY404\",\n  \"aircraftType\": \"Boeing 737-800\",\n  \"departureAirport\": \"NYC\",\n  \"arrivalAirport\": \"MIA\",\n  \"departureDate\": \"2024-12-30\",\n  \"departureTime\": \"09:00\",\n  \"arrivalDate\": \"2024-12-30\",\n  \"arrivalTime\": \"12:30\",\n  \"totalSeats\": 180,\n  \"economySeats\": 150,\n  \"businessSeats\": 24,\n  \"firstClassSeats\": 6,\n  \"economyPrice\": 349.99,\n  \"businessPrice\": 649.99,\n  \"firstClassPrice\": 1449.99,\n  \"gate\": \"C15\",\n  \"terminal\": \"3\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/flights",
+							"host": ["{{baseUrl}}"],
+							"path": ["flights"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Create Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flightId\": \"REPLACE_WITH_ACTUAL_FLIGHT_ID\",\n  \"seatClass\": \"economy\",\n  \"numberOfPassengers\": 1,\n  \"passengers\": [\n    {\n      \"firstName\": \"Test\",\n      \"lastName\": \"Passenger\",\n      \"dateOfBirth\": \"1990-01-01\",\n      \"gender\": \"male\",\n      \"passportNumber\": \"TEST123456\",\n      \"nationality\": \"American\"\n    }\n  ],\n  \"paymentMethod\": \"credit_card\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bookings",
+							"host": ["{{baseUrl}}"],
+							"path": ["bookings"]
+						}
+					}
+				},
+				{
+					"name": "Get My Bookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/my-bookings",
+							"host": ["{{baseUrl}}"],
+							"path": ["bookings", "my-bookings"]
+						}
+					}
+				},
+				{
+					"name": "Get All Bookings (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bookings",
+							"host": ["{{baseUrl}}"],
+							"path": ["bookings"]
+						}
+					}
+				},
+				{
+					"name": "Get Booking Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/admin/stats",
+							"host": ["{{baseUrl}}"],
+							"path": ["bookings", "admin", "stats"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Users (Super Admin)",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": ["{{baseUrl}}"],
+							"path": ["users"]
+						}
+					}
+				},
+				{
+					"name": "Get User Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/stats",
+							"host": ["{{baseUrl}}"],
+							"path": ["users", "stats"]
+						}
+					}
+				},
+				{
+					"name": "Get All Roles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/roles",
+							"host": ["{{baseUrl}}"],
+							"path": ["users", "roles"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "System",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:3000/health",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["health"]
+						}
+					}
+				},
+				{
+					"name": "API Information",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": [""]
+						}
+					}
+				}
+			]
+		}
+	]
+}

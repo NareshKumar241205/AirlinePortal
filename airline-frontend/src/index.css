@@ -1,0 +1,130 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+@layer base {
+  * {
+    @apply transition-colors duration-300 ease-in-out;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased;
+    @apply bg-light-bg dark:bg-dark-bg;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-accent font-medium;
+    @apply transition-all duration-200 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary-500 hover:bg-primary-600 dark:bg-dark-primary dark:hover:bg-primary-400;
+    @apply text-white shadow-md hover:shadow-lg;
+    @apply focus:ring-primary-500 dark:focus:ring-dark-primary;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary-500 hover:bg-secondary-600 dark:bg-dark-secondary dark:hover:bg-secondary-400;
+    @apply text-white shadow-md hover:shadow-lg;
+    @apply focus:ring-secondary-500 dark:focus:ring-dark-secondary;
+  }
+  
+  .btn-outline {
+    @apply btn border-2 border-primary-500 dark:border-dark-primary;
+    @apply text-primary-500 dark:text-dark-primary;
+    @apply hover:bg-primary-500 dark:hover:bg-dark-primary hover:text-white;
+    @apply focus:ring-primary-500 dark:focus:ring-dark-primary;
+  }
+  
+  .btn-ghost {
+    @apply btn hover:bg-gray-100 dark:hover:bg-gray-800;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+  }
+  
+  .card {
+    @apply bg-light-card dark:bg-dark-card rounded-xl shadow-soft;
+    @apply border border-gray-200 dark:border-gray-700;
+    @apply transition-all duration-200 ease-in-out;
+  }
+  
+  .card-hover {
+    @apply card hover:shadow-medium hover:-translate-y-1;
+  }
+  
+  .input {
+    @apply w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600;
+    @apply bg-white dark:bg-gray-800 text-light-text-primary dark:text-dark-text-primary;
+    @apply placeholder-light-text-secondary dark:placeholder-dark-text-secondary;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-dark-primary focus:border-transparent;
+    @apply transition-all duration-200 ease-in-out;
+  }
+  
+  .sidebar-item {
+    @apply flex items-center w-full px-3 py-2 rounded-lg;
+    @apply text-light-text-secondary dark:text-dark-text-secondary;
+    @apply hover:bg-primary-50 dark:hover:bg-gray-800;
+    @apply hover:text-primary-600 dark:hover:text-dark-primary;
+    @apply transition-all duration-200 ease-in-out;
+  }
+  
+  .sidebar-item-active {
+    @apply sidebar-item bg-primary-100 dark:bg-gray-800;
+    @apply text-primary-600 dark:text-dark-primary;
+  }
+  
+  .metric-card {
+    @apply card p-6;
+    @apply hover:shadow-medium transition-shadow duration-200;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-500;
+    @apply dark:from-dark-primary dark:to-dark-secondary;
+    @apply bg-clip-text text-transparent;
+  }
+  
+  .hero-gradient {
+    @apply bg-gradient-to-br from-primary-50 via-white to-secondary-50;
+    @apply dark:from-gray-900 dark:via-dark-bg dark:to-gray-800;
+  }
+}
+
+@layer utilities {
+  /* Custom animations for notifications */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+}
